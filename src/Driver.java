@@ -4,102 +4,99 @@ public class Driver {
 
     public static void main(String[] args) {
 
-    Book bookList[] = new Book[3];
-    Store newStore = new Store();
+        Person storeOwner = new Person("Ahmed", 20, "20 July, 2020", null);
+        Store newStore = new Store(storeOwner, 100);
 
-
-    bookList[0] = new Book(null, null,null, 0, 0 );
-    bookList[1] = new Book("43215678", "Maths","Morgan", 20, 3 );
-    bookList[2] = new Book("43215678", "English","Morgan", 25, 6 );
-
-//    for(int i=0; i < bookList.length;i++){
-//        bookList[i] = new Book("43215678", "Maths","Morgan", 20, 6 );
-//    }
+        newStore.initializeBooks();
 
         Scanner input = new Scanner(System.in);
-        System.out.printf("Enter Options:%n1-Search book%n2-PrintBookList%n3-PrintRevenue%n4-Exit%n->");
-        int userInput = input.nextInt();
-        switch (userInput){
-            case 2:
-                printBooks(bookList);
-                System.exit(0);
 
-            case 3:
-                System.out.println("Revenue: $"+newStore.getRevenue());
-                System.exit(0);
-            case 1:
-                searchBook(bookList, newStore);
-                System.exit(0);
-            default:
-                System.exit(0);
+        while (true) {
 
-
+            System.out.printf("%nEnter Options:" +
+                    "%n1-Search book" +
+                    "%n2-Print books " +
+                    "%n3-Print Balance" +
+                    "%n4-Exit" +
+                    "%n->");
+            int userInput = input.nextInt();
+            switch (userInput) {
+                case 1: // searches a book
+                    searchBook(newStore.getBookList(), newStore);
+                    break;
+                case 2: // prints a book
+                    printBooks(newStore.getBookList());
+                    break;
+                case 3: // print revenue
+                    System.out.println("Balance: $" + newStore.getBalance());
+                    System.out.println("Revenue: $" + newStore.getRevenue());
+                    break;
+                case 4:
+                    System.exit(0);
+                default: // default
+                    break;
+            }
         }
-
-//    printBooks(bookList);//Assigns books
-
-
-
-
-
-
 
     }
 
-    public static int searchBook(Book bookList[], Store newStore){
-        int bookValue=0;
+    public static boolean searchBook(Book[] bookList, Store newStore) {
+
+        boolean bookFound = false;
+
         Scanner input = new Scanner(System.in);
-        System.out.printf("Enter BookName:%n->");
+        System.out.printf("Enter BookName: %n->");
         String userInput = input.nextLine();
-        bookList[0].setTitle(userInput);
 
-        for (int i = 1; i < bookList.length; i++) {
-                if(bookList[0].equals(bookList[i])){
-                    bookValue = 1;
-                    sellBook(bookList[i],newStore);
+        for (int i = 0; i < bookList.length; i++) {
+            if (bookList[i] != null && userInput.equalsIgnoreCase(bookList[i].getTitle())) {
+                bookFound = true;
+                System.out.println("Book found");
+                if (bookList[i].getQuantity()>0) {
+                    sellBook(bookList[i], newStore);
+                } else {
+                    System.out.print("Quantity is 0");
                 }
-
+            }
         }
-        if(bookValue==0)
+
+        if (!bookFound) {
             System.out.println("Book not found");
-        return bookValue;
+        }
+        return bookFound;
     }
 
-    public static void printBooks(Book bookList[]) {
+    public static void printBooks(Book[] bookList) {
 
-        for (int i = 1; i < bookList.length; i++) {
+        for (int i = 0; i < bookList.length; i++) {
             if (bookList[i] != null)
-                System.out.println(bookList[i]);
+                System.out.println(bookList[i].toString());
         }
     }
 
-    public static void sellBook(Book book,Store newStore){
+    public static void sellBook(Book book, Store newStore) {
 
-        Scanner input = new Scanner(System.in);
-        System.out.printf("Do you want to sell book?:%n1-Yes%n2-No%n->");
-        int userInput = input.nextInt();
-        switch (userInput){
-            case 1:
-                if(book.getQuantity()>0) {
-                    System.out.println(book.toString());
-                    book.setQuantity(book.getQuantity() - 1);
-                    System.out.println("Now Books Quantity: "+book.getQuantity());
-                    newStore.setRevenue(book.getPrice());
-
-                }
-                System.out.println("Revenue generated: $"+newStore.getRevenue());
-
-
-
-            case 4:
-                System.exit(0);
-
+            Scanner input = new Scanner(System.in);
+            System.out.printf("Do you want to sell book?:%n1-Press 1 for Yes %n2-Press 2 for No%n->");
+            int userInput = input.nextInt();
+            switch (userInput) {
+                case 1: // sell
+                        System.out.println(book);
+                        book.setQuantity(book.getQuantity() - 1);
+                        System.out.println("Updated Books Quantity: " + book.getQuantity());
+                        newStore.setBalance(newStore.getBalance() + book.getPrice());
+                        newStore.setRevenue(newStore.getRevenue() + book.getPrice());
+                        System.out.println("Updated Balance: " + newStore.getBalance());
+                    break;
+                case 2: // do not sell
+                    break;
+                default: // default
+                    break;
+            }
 
         }
-
 
     }
 
 
-}
 

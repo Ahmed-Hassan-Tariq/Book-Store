@@ -1,17 +1,20 @@
 public class Book {
     private String ISBN;
     private String Title;
-    private String Author;
+    private Person Author;
     private float Price;
     private int Quantity;
 
+    public Book() {
+    }
 
-    public Book(String ISBN, String title, String author, float price, int quantity) {
+
+    public Book(String ISBN, String title, Person author, float price, int quantity) {
         this.ISBN = ISBN;
-        Title = title;
-        Author = author;
-        Price = price;
-        Quantity = quantity;
+        this.Title = title;
+        this.Author = author;
+        this.Price = price;
+        this.Quantity = quantity;
     }
 
     public String getISBN() {
@@ -30,12 +33,12 @@ public class Book {
         Title = title;
     }
 
-    public String getAuthor() {
+    public Person getAuthor() {
         return Author;
     }
 
-    public void setAuthor(String author) {
-        Author = author;
+    public void setAuthor(Person author) {
+        this.Author = author;
     }
 
     public float getPrice() {
@@ -43,7 +46,7 @@ public class Book {
     }
 
     public void setPrice(float price) {
-        if(price > 0.0) {
+        if (price > 0.0) {
             Price = price;
         }
     }
@@ -53,20 +56,17 @@ public class Book {
     }
 
     public void setQuantity(int quantity) {
-        if(quantity >= 0) {
+        if (quantity >= 0) {
             Quantity = quantity;
         }
     }
 
-    public String toString(){
-        return ("ISBN:"+this.ISBN+" Title:"+ this.Title+" Author:"+this.Author+" Price:"+this.Price+" Qnt:"+this.Quantity);
+    public String toString() {
+        return ("ISBN:" + this.ISBN +
+                " Title:" + this.Title +
+                " Author:" + this.Author.getName() +
+                " Price:" + this.Price +
+                " Qnt:" + this.Quantity);
     }
 
-    public boolean equals(Book b){
-
-        Book temp = (Book )b;
-
-        return (Title.equalsIgnoreCase(temp.Title));
-
-    }
 }
