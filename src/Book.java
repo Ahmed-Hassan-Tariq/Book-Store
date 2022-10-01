@@ -61,12 +61,13 @@ public class Book {
         }
     }
 
-    public String toString() {
-        return ("ISBN:" + this.ISBN +
-                " Title:" + this.Title +
-                " Author:" + this.Author.getName() +
-                " Price:" + this.Price +
-                " Qnt:" + this.Quantity);
+    public void printBook() {
+        System.out.println(
+                "ISBN:" + this.ISBN +
+                        " Title:" + this.Title +
+                        " Author:" + this.Author.getName() +
+                        " Price:" + this.Price +
+                        " Qnt:" + this.Quantity);
     }
 
 }
