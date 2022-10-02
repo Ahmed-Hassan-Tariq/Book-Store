@@ -4,12 +4,12 @@ public class Driver {
 
     public static void main(String[] args) {
 
-        Person storeOwner = new Person("Ahmed", 20, null);
-        Person Morgan = new Person("Morgan", 44, null);
+        Person storeOwner = new Person("Ahmed", 20, null); // create Store Owner.
+        Person Morgan = new Person("Morgan", 44, null); //create Book Author.
 
-        Store newStore = new Store(storeOwner, 100, 500);
+        Store newStore = new Store(storeOwner, 100, 500); //create Store.
 
-        newStore.initializeBook("12345", "Physics", Morgan, 25, 3);
+        newStore.initializeBook("12345", "Physics", Morgan, 25, 3); //create Book.
         newStore.initializeBook("12346", "English", Morgan, 12, 1);
         newStore.initializeBook("12346", "Maths", Morgan, 12, 2);
 
@@ -26,22 +26,23 @@ public class Driver {
                             "%n->");
             int userInput = input.nextInt();
             switch (userInput) {
-                case 1: // searches a book
+                case 1: // search for a book; Not Selling.
                     Store.searchBook(newStore.getBookList(), newStore, false);
                     break;
-                case 2:
+                case 2: // search for a book; Selling.
                     Store.searchBook(newStore.getBookList(), newStore, true);
                     break;
-                case 3: // prints a book
+                case 3: // prints books in list.
                     Store.printBooks(newStore.getBookList());
                     break;
-                case 4: // print balance and revenue
+                case 4: // print balance and revenue.
                     System.out.println("Balance: $" + newStore.getBalance());
                     System.out.println("Revenue: $" + newStore.getRevenue());
                     break;
-                case 5: //Exits program
+                case 5: //Exits program.
                     System.exit(0);
-                default: // default
+                default: // default.
+                    System.out.println("Invalid input.");
                     break;
             }
         }

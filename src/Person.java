@@ -15,9 +15,10 @@ public class Person {
     public void print() {
         System.out.printf(
                 "%nName:%s" +
-                        "%nAge:%d" +
-                        "%nContact:%s" +
-                        "%n", name, age, contact);
+                "%nAge:%d" +
+                "%nContact:%s" +
+                "%n"
+                , name, age, contact);
     }
 
     public String getName() {

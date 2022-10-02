@@ -61,7 +61,7 @@ public class Book {
         }
     }
 
-    public void printBook() {
+    public void printBook() { //print attributes of book function
         System.out.println(
                 "ISBN:" + this.ISBN +
                         " Title:" + this.Title +

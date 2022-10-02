@@ -17,15 +17,15 @@ public class Store {
         this.bookList = new Book[books];
     }
 
-    public static void printBooks(Book[] bookList) {
+    public static void printBooks(Book[] bookList) { //print book list function
 
         for (int i = 0; i < bookList.length; i++) {
-            if (bookList[i] != null)
+            if (bookList[i] != null) //print books till null encountered
                 bookList[i].printBook();
         }
     }
 
-    public static void searchBook(Book[] bookList, Store newStore, boolean sell) {
+    public static void searchBook(Book[] bookList, Store newStore, boolean sell) { //search book function
 
         boolean bookFound = false;
 
@@ -34,33 +34,37 @@ public class Store {
         String userInput = input.nextLine();
 
         for (int i = 0; i < bookList.length; i++) {
+            //encounter is not null and encounter title equals userInput(string) condition
             if (bookList[i] != null && userInput.equalsIgnoreCase(bookList[i].getTitle())) {
                 bookFound = true;
 
-                bookList[i].printBook();
+                bookList[i].printBook(); //prints book's attributes
 
 
-                if (bookList[i].getQuantity() > 0 && sell) {
-                    sellBook(bookList[i], newStore);
+
+                    if (bookList[i].getQuantity() > 0 && sell) {//found book has > 0 quantity and sell is True condition
+
+                    sellBook(bookList[i], newStore);    //call sellBook function
                 } else if (bookList[i].getQuantity() == 0) {
                     System.out.printf("%nQuantity is 0, cannot sell");
                 }
             }
         }
 
-
         if (!bookFound) {
             System.out.println("Book not found");
         }
     }
 
-    public static void sellBook(Book book, Store newStore) {
+    public static void sellBook(Book book, Store newStore) { //sellBook function
 
+
+        book.setQuantity(book.getQuantity() - 1);   //reduce book's quantity
+
+        newStore.setBalance(newStore.getBalance() + book.getPrice()); //add book price to balance
+        newStore.setRevenue(newStore.getRevenue() + book.getPrice()); //add book price to revenue
+        System.out.println("Book Sold.");
         book.printBook();
-        book.setQuantity(book.getQuantity() - 1);
-        System.out.println("Book Sold");
-        newStore.setBalance(newStore.getBalance() + book.getPrice());
-        newStore.setRevenue(newStore.getRevenue() + book.getPrice());
         System.out.println("Updated Balance: " + newStore.getBalance());
 
     }
@@ -100,7 +104,7 @@ public class Store {
     public void initializeBook(String ISBN, String title, Person author, float price, int quantity) {
 
         for (int i = 0; i < bookList.length; i++) {
-            if (bookList[i] == null) {
+            if (bookList[i] == null) { //stores book in empty index
                 bookList[i] = new Book(ISBN, title, author, price, quantity);
                 break;
             }
